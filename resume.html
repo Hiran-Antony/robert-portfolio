@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resume – M. Robert Rajiah</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f0ede8;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    /* PRINT BUTTON - hidden when printing */
+    .print-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #111;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 100;
+      box-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .print-bar p {
+      color: #aaa;
+      font-size: 0.85rem;
+    }
+
+    .print-bar p span {
+      color: #D4AF37;
+      font-weight: 600;
+    }
+
+    .print-btn {
+      background: linear-gradient(135deg, #D4AF37, #a88820);
+      color: #000;
+      border: none;
+      padding: 10px 28px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 16px rgba(212, 175, 55, 0.4);
+    }
+
+    .print-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(212, 175, 55, 0.5);
+    }
+
+    /* RESUME PAPER */
+    .resume {
+      background: #fff;
+      width: 210mm;
+      min-height: 297mm;
+      margin-top: 70px;
+      box-shadow: 0 8px 60px rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* SIDEBAR */
+    .resume-inner {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      min-height: 297mm;
+    }
+
+    .sidebar {
+      background: #0f0f18;
+      color: #e0e0e0;
+      padding: 1.6rem 1.2rem;
+      position: relative;
+    }
+
+    .sidebar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, #D4AF37, transparent);
+    }
+
+    .side-photo {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 auto 0.8rem;
+      border: 3px solid #D4AF37;
+      box-shadow: 0 0 18px rgba(212, 175, 55, 0.4);
+    }
+
+    .side-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .side-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      text-align: center;
+      color: #fff;
+      margin-bottom: 0.2rem;
+      line-height: 1.3;
+    }
+
+    .side-role {
+      text-align: center;
+      font-size: 0.63rem;
+      color: #D4AF37;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 1.1rem;
+      line-height: 1.4;
+    }
+
+    .side-section {
+      margin-bottom: 1rem;
+    }
+
+    .side-section-title {
+      font-size: 0.62rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #D4AF37;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+      padding-bottom: 0.3rem;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    .side-item {
+      margin-bottom: 0.4rem;
+    }
+
+    .side-item .si-label {
+      font-size: 0.58rem;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .side-item .si-val {
+      font-size: 0.72rem;
+      color: #ccc;
+      margin-top: 1px;
+      word-break: break-word;
+    }
+
+    .soft-tag {
+      display: inline-block;
+      background: rgba(212, 175, 55, 0.1);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      border-radius: 4px;
+      padding: 3px 8px;
+      font-size: 0.65rem;
+      color: #D4AF37;
+      margin: 2px 2px 2px 0;
+    }
+
+    .skill-item {
+      margin-bottom: 0.45rem;
+    }
+
+    .skill-name {
+      font-size: 0.72rem;
+      color: #ccc;
+      margin-bottom: 3px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .skill-name span {
+      color: #D4AF37;
+    }
+
+    .skill-track {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 50px;
+      height: 4px;
+    }
+
+    .skill-fill {
+      height: 100%;
+      border-radius: 50px;
+      background: linear-gradient(to right, #a88820, #D4AF37);
+    }
+
+    /* MAIN CONTENT */
+    .main-content {
+      padding: 1.6rem 1.8rem;
+    }
+
+    .main-header {
+      margin-bottom: 1rem;
+      padding-bottom: 0.7rem;
+      border-bottom: 2px solid #f0ede8;
+    }
+
+    .main-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      font-weight: 900;
+      color: #111;
+      line-height: 1.1;
+      margin-bottom: 0.2rem;
+    }
+
+    .main-header h1 span {
+      color: #D4AF37;
+    }
+
+    .main-header .tagline {
+      font-size: 0.75rem;
+      color: #888;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .summary-box {
+      background: linear-gradient(135deg, #0f0f18, #1a1a2e);
+      border-left: 3px solid #D4AF37;
+      border-radius: 0 8px 8px 0;
+      padding: 0.6rem 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .summary-box p {
+      font-size: 0.75rem;
+      color: #ccc;
+      line-height: 1.6;
+    }
+
+    .section {
+      margin-bottom: 1rem;
+    }
+
+    .section-head {
+      font-size: 0.62rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #D4AF37;
+      font-weight: 700;
+      border-bottom: 1px solid #f0ede8;
+      padding-bottom: 0.3rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .exp-block {
+      margin-bottom: 0.7rem;
+    }
+
+    .exp-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .exp-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #111;
+    }
+
+    .exp-period {
+      font-size: 0.65rem;
+      color: #D4AF37;
+      font-weight: 600;
+      background: rgba(212, 175, 55, 0.1);
+      padding: 2px 8px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .exp-org {
+      font-size: 0.7rem;
+      color: #555;
+      margin: 1px 0 3px;
+    }
+
+    .exp-desc {
+      font-size: 0.72rem;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    .edu-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .edu-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #D4AF37;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    .edu-year {
+      font-size: 0.62rem;
+      color: #D4AF37;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .edu-deg {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #111;
+    }
+
+    .edu-inst {
+      font-size: 0.68rem;
+      color: #777;
+    }
+
+    .edu-grade {
+      font-size: 0.65rem;
+      color: #D4AF37;
+      margin-top: 1px;
+    }
+
+    .rank-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #D4AF37, #a88820);
+      color: #000;
+      font-size: 0.58rem;
+      font-weight: 800;
+      padding: 1px 7px;
+      border-radius: 20px;
+      margin-left: 5px;
+    }
+
+    .achieve-item {
+      display: flex;
+      gap: 0.5rem;
+      align-items: flex-start;
+      margin-bottom: 0.28rem;
+      font-size: 0.72rem;
+      color: #444;
+    }
+
+    .achieve-item::before {
+      content: '✦';
+      color: #D4AF37;
+      flex-shrink: 0;
+      font-size: 0.62rem;
+      margin-top: 2px;
+    }
+
+    /* PRINT STYLES */
+    @media print {
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      body {
+        background: #fff;
+        padding: 0;
+        display: block;
+      }
+
+      .print-bar {
+        display: none !important;
+      }
+
+      .resume {
+        margin: 0;
+        box-shadow: none;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- PRINT BAR -->
+  <div class="print-bar">
+    <p>📄 <span>M. Robert Rajiah</span> — Resume Preview | Click "Save as PDF" in the print dialog</p>
+    <button class="print-btn" onclick="window.print()">⬇ Download PDF</button>
+  </div>
+
+  <!-- RESUME -->
+  <div class="resume">
+    <div class="resume-inner">
+
+      <!-- SIDEBAR -->
+      <div class="sidebar">
+        <div class="side-photo">
+          <img src="images/robert.jpg" alt="M. Robert Rajiah" />
+        </div>
+        <div class="side-name">M. Robert Rajiah</div>
+        <div class="side-role">Assistant Professor<br />Graphic Designer</div>
+
+        <div class="side-section">
+          <div class="side-section-title">Contact</div>
+          <div class="side-item">
+            <div class="si-label">📞 Phone</div>
+            <div class="si-val">+91 9944321838</div>
+          </div>
+          <div class="side-item">
+            <div class="si-label">✉️ Email</div>
+            <div class="si-val">rajiahrobert@gmail.com</div>
+          </div>
+          <div class="side-item">
+            <div class="si-label">📍 Location</div>
+            <div class="si-val">Tiruchirappalli, Tamil Nadu</div>
+          </div>
+          <div class="side-item">
+            <div class="si-label">💼 LinkedIn</div>
+            <div class="si-val">linkedin.com/in/robert-rajiah-m</div>
+          </div>
+          <div class="side-item">
+            <div class="si-label">📷 Instagram</div>
+            <div class="si-val">@naa__raja___</div>
+          </div>
+        </div>
+
+        <div class="side-section">
+          <div class="side-section-title">Core Skills</div>
+          <div class="skill-item">
+            <div class="skill-name">Graphic Design</div>
+            <div class="skill-track">
+              <div class="skill-fill" style="width:92%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name">Photography</div>
+            <div class="skill-track">
+              <div class="skill-fill" style="width:85%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name">Video Editing</div>
+            <div class="skill-track">
+              <div class="skill-fill" style="width:82%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name">Branding & Advertising</div>
+            <div class="skill-track">
+              <div class="skill-fill" style="width:88%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name">Creative Thinking</div>
+            <div class="skill-track">
+              <div class="skill-fill" style="width:95%"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="side-section">
+          <div class="side-section-title">Software</div>
+          <span class="soft-tag">Canva</span>
+          <span class="soft-tag">Photoshop</span>
+          <span class="soft-tag">Illustrator</span>
+          <span class="soft-tag">Lightroom</span>
+          <span class="soft-tag">CapCut</span>
+          <span class="soft-tag">Premiere Pro</span>
+        </div>
+
+        <div class="side-section">
+          <div class="side-section-title">Languages</div>
+          <div class="skill-item">
+            <div class="skill-name">Tamil <span>Native</span></div>
+            <div class="skill-track">
+              <div class="skill-fill" style="width:100%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name">English <span>Proficient</span></div>
+            <div class="skill-track">
+              <div class="skill-fill" style="width:80%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIN CONTENT -->
+      <div class="main-content">
+
+        <div class="main-header">
+          <h1>M. Robert <span>Rajiah</span></h1>
+          <div class="tagline">Assistant Professor · Graphic Designer · Visual Communication Expert</div>
+        </div>
+
+        <div class="summary-box">
+          <p>Passionate Visual Communication professional and educator with a University 3rd Rank in M.Sc. (CGPA 7.66).
+            Currently serving as Assistant Professor at Thanthai Hans Roever College (Autonomous), Perambalur, with 1.5+
+            years of industry experience at DIGIPLUS Agency. Specialising in graphic design, branding, photography, and
+            video production.</p>
+        </div>
+
+        <div class="section">
+          <div class="section-head">Work Experience</div>
+
+          <div class="exp-block">
+            <div class="exp-top">
+              <div class="exp-title">Assistant Professor — Visual Communication</div>
+              <div class="exp-period">July 2025 – Present</div>
+            </div>
+            <div class="exp-org">Thanthai Hans Roever College (Autonomous), Perambalur</div>
+            <div class="exp-desc">Teaching visual communication theory and creative design practice. Mentoring students
+              in graphic design, media production, and visual storytelling. Developing curriculum-aligned creative
+              projects and assessments.</div>
+          </div>
+
+          <div class="exp-block">
+            <div class="exp-top">
+              <div class="exp-title">Senior Graphic Designer & Design Educator</div>
+              <div class="exp-period">1.5 Years</div>
+            </div>
+            <div class="exp-org">DIGIPLUS Agency / Academy</div>
+            <div class="exp-desc">Led brand identity and visual campaigns for diverse clients. Managed end-to-end design
+              projects from concept to delivery. Mentored junior designers and conducted design workshops for aspiring
+              professionals.</div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-head">Education</div>
+
+          <div class="edu-row">
+            <div class="edu-dot"></div>
+            <div>
+              <div class="edu-year">2022 – 2024</div>
+              <div class="edu-deg">M.Sc. Visual Communication <span class="rank-badge">🏆 University 3rd Rank</span>
+              </div>
+              <div class="edu-inst">Government Arts College, Tiruchirappalli</div>
+              <div class="edu-grade">CGPA: 7.66</div>
+            </div>
+          </div>
+
+          <div class="edu-row">
+            <div class="edu-dot"></div>
+            <div>
+              <div class="edu-year">2019 – 2022</div>
+              <div class="edu-deg">B.Sc. Visual Communication</div>
+              <div class="edu-inst">Government Arts College, Tiruchirappalli</div>
+              <div class="edu-grade">CGPA: 7.94</div>
+            </div>
+          </div>
+
+          <div class="edu-row">
+            <div class="edu-dot"></div>
+            <div>
+              <div class="edu-year">2019</div>
+              <div class="edu-deg">Higher Secondary Certificate (HSC)</div>
+              <div class="edu-inst">St. John Vestry Anglo Indian Hr. Sec. School, Tiruchirappalli</div>
+            </div>
+          </div>
+
+          <div class="edu-row">
+            <div class="edu-dot"></div>
+            <div>
+              <div class="edu-year">2017</div>
+              <div class="edu-deg">SSLC — 85%</div>
+              <div class="edu-inst">St. John Vestry Anglo Indian Hr. Sec. School, Tiruchirappalli</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-head">Key Achievements</div>
+          <div class="achieve-item">University 3rd Rank holder in M.Sc. Visual Communication (CGPA 7.66), Government
+            Arts College, Tiruchirappalli</div>
+          <div class="achieve-item">Successfully transitioned into academia as an Assistant Professor within one year of
+            postgraduation</div>
+          <div class="achieve-item">Led multiple branding campaigns with measurable client impact at DIGIPLUS Agency
+          </div>
+          <div class="achieve-item">Comprehensive expertise across the full visual design spectrum — print, digital,
+            photography and video</div>
+          <div class="achieve-item">Delivered design education workshops to aspiring graphic designers at DIGIPLUS
+            Academy</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Auto-open print dialog after page loads for seamless PDF download
+    window.addEventListener('load', function () {
+      setTimeout(() => window.print(), 800);
+    });
+  </script>
+</body>
+
+</html>
